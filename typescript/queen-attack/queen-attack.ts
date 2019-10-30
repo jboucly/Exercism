@@ -38,40 +38,29 @@ export default class QueenAttack {
     }
 
     /**
-     * Permet de transformer la matrix en string[] formaté
-     */
+      * Permet de transformer la matrix en string[] formaté
+      */
     public toString(): string[] {
-        console.log(this.board);
-
         let boardToReturn: any = [];
-        let index: number = 0;
+        let col: number = 0;
         let row: string = '';
-        let l: string[] = [];
 
-        Object.keys(this.board).forEach((key) => {
+        Object.keys(this.board).forEach((key, index) => {
             const val = this.board[key];
-            console.log(key);
-            console.log(val);
+            if (val === 'black') { row = `${row} B`; }
+            else if (val === 'white') { row = `${row} W`; }
+            else { row = `${row} ${val}`; }
 
-            if (index === 8) {
-                boardToReturn.push(row.trim());
+            col++;
 
-                index = 0;
+            if (index === 64 || col === 8) {
+                boardToReturn.push(`${row.trim()}\n`);
+                col = 0;
                 row = '';
-            } else {
-                index++;
-
-                if (val === 'black') { row = `${row} B`; }
-                else if (val === 'white') { row = `${row} W`; }
-                else { row = `${row} ${val}`; }
             }
         });
-        console.log(boardToReturn);
         return boardToReturn.join('');
     }
-
-
-
 
 
     public canAttack = (): boolean => {
